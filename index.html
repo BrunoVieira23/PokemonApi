@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="index.css" />
+    <title>Pokemon List</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <h1>Pokemon List</h1>
+    <ul id="pokemonList"></ul>
+    <script>
+        $(document).ready(function () {
+            var apiUrl = "https://pokeapi.co/api/v2/pokemon?limit=1000";
+            $.getJSON(apiUrl, function (data) {
+                var pokemonList = data.results;
+                pokemonList.sort(function (a, b) {
+                    return a.name.localeCompare(b.name);
+                });
+                $.each(pokemonList, function (index, pokemon) {
+                    var listItem = $("<li></li>").text(pokemon.name);
+                    $("#pokemonList").append(listItem);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
